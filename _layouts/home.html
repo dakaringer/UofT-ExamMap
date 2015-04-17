@@ -15,24 +15,35 @@ layout: default
             <h2 class="featurette-heading">{{page.time}} Exam Timetable.</h2>
             <div class="row featurette">
                 <div class="col-md-12">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Course</th>
-                                <th>Section</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Location</th>
-                            </tr>
-                        </thead>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Course</th>
+                                    <th>Section</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Location</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                     
                     <script>
-                        $.getJSON("timetable/april15.js",
-                            function(data){
-                              console.log(data);
+                        $(document).ready(function () {
+                            $.getJSON("timetable/april15.json", function(json) {
+                                $.each(json, function(key, val) {
+                                    var tr=$('<tr></tr>');
+                                    $.each(val, function(k, v){
+                                        $('<td>'+v+'</td>').appendTo(tr);
+                                    });
+                                    tr.appendTo('.table');
+                                })
                             });
+                        });
                     </script>
+                    
+                    
                 </div>
             </div>
             

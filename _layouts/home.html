@@ -1,0 +1,41 @@
+---
+layout: default
+---
+    <div class="map">
+
+    </div>
+
+    <div class="main-bg">
+        <div class="container main-content">
+            
+            <div class="search">
+
+            </div>
+
+            <h2 class="featurette-heading">{{page.time}} Exam Timetable.</h2>
+            <div class="row featurette">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Section</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Location</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    
+                    <script>
+                        $.getJSON("timetable/april15.js",
+                            function(data){
+                              console.log(data);
+                            });
+                    </script>
+                </div>
+            </div>
+            
+        </div>
+        <!-- /.container -->
+    </div>

@@ -28,6 +28,8 @@
 // Full source at https://github.com/harvesthq/chosen
 // Copyright (c) 2011 Harvest http://getharvest.com
 
+var buildingCodes = [];
+
 (function (e, t) {
     typeof define == "function" && define.amd ? define(t) : e.libGlobalName = t()
 })(this, function () {
@@ -5952,11 +5954,7 @@
                 var s = "",
                     o, u, a = "function",
                     f = this.escapeExpression;
-                return s += '<div class="vcard js-iw-vcard">\n  <a href="javascript: void(0);" id="accessibility-anchor"></a>\n  <span class="utility_links">\n    <a class="email" href="mailto:?Subject=', u = n.title, u ? o = u.call(t, {
-                    hash: {}
-                }) : (o = t.title, o = typeof o === a ? o() : o), s += f(o) + "&body=http://map.utoronto.ca/building/", u = n.id, u ? o = u.call(t, {
-                    hash: {}
-                }) : (o = t.id, o = typeof o === a ? o() : o), s += f(o) + '">Send</a>\n    <a class="url fn org js-iw-showlink" href="#"  >Link</a>\n    <div id="maplinkdiv" style="display:none;width:280px;" class="js-iw-link-container">URL: <input type="text" id="maplink" class="js-iw-link" size="30">\n        <a href="#" class="js-iw-hidelink">Hide</a>\n    </div>\n  </span>\n\n    <img src="/_assets/_images/_buildings_pics/', u = n.code, u ? o = u.call(t, {
+                return s += '<div class="vcard js-iw-vcard">\n  <a href="javascript: void(0);" id="accessibility-anchor"></a>\n  <span class="utility_links">\n <div id="maplinkdiv" style="display:none;width:280px;" class="js-iw-link-container">URL: <input type="text" id="maplink" class="js-iw-link" size="30">\n        <a href="#" class="js-iw-hidelink">Hide</a>\n    </div>\n  </span>\n\n    <img src="/_assets/_images/_buildings_pics/', u = n.code, u ? o = u.call(t, {
                     hash: {}
                 }) : (o = t.code, o = typeof o === a ? o() : o), s += f(o) + '.jpg" alt=" " class="photo" />\n     <h1 class="org">', u = n.title, u ? o = u.call(t, {
                     hash: {}
@@ -6424,6 +6422,8 @@
                     var n = e.polygonPoints;
                     this.hash = "B" + this.id;
                     if (!e.map) return;
+                    buildingCodes.push(e);
+                    console.log(this);
                     this.map = e.map || window.map, this.position = new google.maps.LatLng(this.lat, this.lng), this.createOverlay(n), this.createLabel(), this.addListeners()
                 },
                 highlight: function () {
@@ -6450,10 +6450,27 @@
                     var e = this,
                         t = this.map,
                         n = this.overlay;
+                    var strictBounds = new google.maps.LatLngBounds(new google.maps.LatLng(43.65610515821674, -79.40255999565125), new google.maps.LatLng(43.66937717697182, -79.38655257225037));
                     google.maps.event.addListener(t, "zoom_changed", function () {
                         e.label.toggle(t.getZoom() > 17)
+                    }), google.maps.event.addListener(t, 'center_changed', function() {
+                         if (strictBounds.contains(t.getCenter())) return;
+                         var c = t.getCenter(),
+                             x = c.lng(),
+                             y = c.lat(),
+                         maxX = strictBounds.getNorthEast().lng(),
+                         maxY = strictBounds.getNorthEast().lat(),
+                         minX = strictBounds.getSouthWest().lng(),
+                         minY = strictBounds.getSouthWest().lat();
+
+                        if (x < minX) x = minX;
+                        if (x > maxX) x = maxX;
+                        if (y < minY) y = minY;
+                        if (y > maxY) y = maxY;
+
+                        t.setCenter(new google.maps.LatLng(y, x));
                     }), google.maps.event.addListener(n, "mouseover", function () {
-                        e.highlight(), e.label.onMouseEnter()
+                        e.highlight(), e.label.onMouseEnter();
                     }), google.maps.event.addListener(n, "mouseout", function () {
                         e.focus || e.unhighlight(), e.label.onMouseLeave()
                     }), google.maps.event.addListener(n, "click", e.showInfoWindow)
@@ -6667,6 +6684,8 @@
                                 },
                                 keyboardShortcuts: !1,
                                 navigationControl: !0,
+                                scrollwheel: !1,
+                                minZoom: 15,
                                 navigationControlOptions: {
                                     style: google.maps.NavigationControlStyle.SMALL
                                 },
@@ -7624,7 +7643,7 @@
                     },
                     O = function () {
                         l.pathHasChanged = !0, setTimeout(function () {
-                            C(), k(l.path, r)
+                            C(), k(l.path, r);
                         }, 50)
                     },
                     M = function () {
@@ -7651,7 +7670,7 @@
                         })
                     },
                     j = function (e) {
-                        S.fromMarkerPos = [b.getPosition().jb, b.getPosition().kb], S.toMarkerPos = [w.getPosition().jb, w.getPosition().kb]
+                        S.fromMarkerPos = [b.getPosition().jb, b.getPosition().kb], S.toMarkerPos = [w.getPosition().jb, w.getPosition().kb];
                     },
                     F, I = function (i) {
                         var s = n(this).is(".js-paths-to"),

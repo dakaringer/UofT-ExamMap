@@ -63,6 +63,7 @@ html {
 .map {
     height: 800px;
     background-color:grey;
+    overflow: visible !important;
 }
 
 
@@ -102,8 +103,6 @@ html {
     max-height: 1000px;
     overflow: auto;
 }
-
-
 
 .atcb-list, .atcb-item {
     right:0px;

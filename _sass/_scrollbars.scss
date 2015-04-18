@@ -1,7 +1,7 @@
 $face-color: rgba(50,50,50,0.75);
 
 
-body {
+body, div {
     scrollbar-face-color: $face-color;
     scrollbar-highlight-color: $face-color;
     scrollbar-track-color: $glass;
@@ -17,9 +17,9 @@ body::-webkit-scrollbar {
 }
 
 
-ul, .modal, .categoryBody {
+div {
     &::-webkit-scrollbar {
-        width: 5px;
+        width: 10px;
     }
 }
 

@@ -47,3 +47,9 @@ function populate (year) {
         
     });
 }
+
+
+$(".canvas").click(function () {
+    "use strict";
+    $('[data-toggle="offcanvas"]').blur();
+});

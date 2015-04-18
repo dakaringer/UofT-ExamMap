@@ -6,17 +6,17 @@ layout: default
     </div>
 
     <div class="main-bg">
-        <div class="container main-content">
+        <div class="container main-content" id="hacker-list">
             
-            <div class="search">
-
+            <div class="input-group search-box" data-spy="affix" data-offset-top="780">
+                <input type="search" class="form-control search light-table-filter" data-table="order-table" placeholder="Filter Courses (CSC148 etc.)" aria-describedby="basic-addon1">
             </div>
 
-            <h2 class="featurette-heading">{{page.time}} Exam Timetable.</h2>
+            <h2 class="featurette-heading">{{page.month}} {{page.year}} Exam Timetable</h2>
             <div class="row featurette">
                 <div class="col-md-12">
-                    <div class="table-responsive">
-                        <table class="table">
+                    <div class="timetable">
+                        <table class="table order-table table-hover table-condensed table-fixed">
                             <thead>
                                 <tr>
                                     <th>Course</th>
@@ -24,26 +24,61 @@ layout: default
                                     <th>Date</th>
                                     <th>Time</th>
                                     <th>Location</th>
+                                    <th>Calendar</th>
                                 </tr>
                             </thead>
+
+                            <tbody class="list">                            
+                            </tbody>
+
                         </table>
                     </div>
-                    
                     <script>
-                        $(document).ready(function () {
-                            $.getJSON("timetable/april15.json", function(json) {
+                        $.getJSON("timetable/april15.json", function(json) {
                                 $.each(json, function(key, val) {
+                                    var x = "";
+                                    if (val.section != "*EXAM CANCELLED*") {
+                                        if (val.examDate.split(" ")[2] == "APR") {
+                                            var m = 04;
+                                        }
+                                        else {
+                                            var m = 12;
+                                        }
+                                        var d = val.examDate.split(" ")[1];
+                                        var add = 12;
+                                        if (val.examTime.split(" ")[0] == "AM"){
+                                            add = 0;
+                                        }
+                                        var t1 = parseInt(val.examTime.split(" ")[1]) + add;
+                                        var t2 = parseInt(val.examTime.split(" ")[3]) + add;
+                                        
+                                        x = "<span class=\"addtocalendar atc-style-menu-wb\">" +
+                                            "<var class=\"atc_event\">" +
+                                            "<var class=\"atc_date_start\">"+ {{page.year}} +"-"+m+"-"+d+" "+t1+":00:00</var>" +
+                                            "<var class=\"atc_date_end\">"+ {{page.year}} +"-"+m+"-"+d+" "+t2+":00:00</var>" +
+                                            "<var class=\"atc_timezone\">America/Toronto</var>" +
+                                            "<var class=\"atc_title\">"+ val.course +" Exam</var>" +
+                                            "<var class=\"atc_description\">"+ val.course +" Exam</var>" +
+                                            "<var class=\"atc_location\">"+ val.location +"</var>" +
+                                            "</var>" +
+                                            "</span>";
+                                    }
                                     var tr=$('<tr></tr>');
-                                    $.each(val, function(k, v){
-                                        $('<td>'+v+'</td>').appendTo(tr);
-                                    });
-                                    tr.appendTo('.table');
+                                    $('<td class="course">'+val.course+'</td>').appendTo(tr);
+                                    if (val.section) {
+                                        $('<td class="section">'+val.section+'</td>').appendTo(tr);
+                                    }
+                                    else {
+                                        $('<td></td>').appendTo(tr);
+                                    }
+                                    $('<td class="date">'+val.examDate+'</td>').appendTo(tr);
+                                    $('<td class="time">'+val.examTime+'</td>').appendTo(tr);
+                                    $('<td class="location">'+val.location+'</td>').appendTo(tr);
+                                    $('<td class="cal">'+x+'</td>').appendTo(tr);
+                                    tr.appendTo('.list');
                                 })
-                            });
-                        });
+                        });   
                     </script>
-                    
-                    
                 </div>
             </div>
             

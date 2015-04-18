@@ -86,10 +86,11 @@ html {
     font-weight: 300;
     line-height: 1;
     letter-spacing: -1px;
+    color:$blue;
     
     @media (min-width: 992px) {
         margin-top: 70px;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
     }
     
     @media (min-width: 768px) {

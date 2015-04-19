@@ -3,8 +3,8 @@
     "title": "Downtown Toronto (St. George)",
     "slug": "utsg",
     "website": "",
-    "lat": 43.6631140810929,
-    "lng": -79.3954735994339,
+    "lat": 43.66187224963892,
+    "lng": -79.39425051212311,
     "zoom": 16,
     "cluster": true,
     "has_paths": false,
@@ -13550,5 +13550,18 @@
         "alpha": "XX791",
         "lat": 43.6681,
         "lng": -79.38765
+    }, {
+        "id": "792",
+        "code": "ST VLAD",
+        "title": "St Vladimir Institute",
+        "short_name": "St Vladimir Institute",
+        "street": "620 Spadina Ave, Toronto, ON M5S",
+        "city": "Toronto",
+        "province": "ON",
+        "country": "Canada",
+        "postal": "M5S 2H4",
+        "alpha": "ST VLAD",
+        "lat": 43.662132,
+        "lng": -79.402084
     }]
 }

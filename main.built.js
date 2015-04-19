@@ -29,6 +29,7 @@
 // Copyright (c) 2011 Harvest http://getharvest.com
 
 var focused = [];
+var hovered = "";
 var buildingList = [];
 
 (function (e, t) {
@@ -6464,6 +6465,13 @@ var buildingList = [];
                         fillOpacity: 1
                     })
                 },
+                hoverb: function () {
+                    this.overlay.setOptions({
+                        fillColor: "#ff0000",
+                        strokeColor: this._colors.strokeHover,
+                        fillOpacity: 1
+                    })
+                },
                 addListeners: function () {
                     var e = this,
                         t = this.map,
@@ -7795,6 +7803,7 @@ var buildingList = [];
         
 var LightTableFilter = (function (Arr) {
 
+    
     var _input;
 
     function _onInputEvent(e) {
@@ -7824,7 +7833,12 @@ var LightTableFilter = (function (Arr) {
         var text = row.childNodes[0].textContent.toLowerCase(), val = _input.value.toLowerCase();
         row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
         if (row.style.display == 'table-row' && val) {
-            focused.push(row.childNodes[4].textContent.split(" ")[0]);
+            if (row.childNodes[4].textContent == "ST VLAD") {
+                focused.push("ST VLAD")
+            }
+            else {
+                focused.push(row.childNodes[4].textContent.split(" ")[0]);
+            }
         }
     }
 
@@ -7842,4 +7856,28 @@ document.addEventListener('readystatechange', function() {
     if (document.readyState === 'complete') {
         LightTableFilter.init();
     }
+});
+
+$(".list").on("mouseover", ".exam", function() {
+    if (this.childNodes[4].textContent == "ST VLAD") {
+        hovered = "ST VLAD"
+    }
+    else {
+        hovered = this.childNodes[4].textContent.split(" ")[0];
+    }
+    
+    buildingList.forEach(function(b) {
+        if (hovered == b.code) {
+            b.hoverb();
+        }
+        else {
+            b.unhighlight();
+        }
+    });
+});
+        
+$(".list").on("mouseout", ".exam", function() {
+    buildingList.forEach(function(b) {
+        b.unhighlight();
+    });
 });

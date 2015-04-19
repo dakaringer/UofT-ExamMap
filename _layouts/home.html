@@ -1,12 +1,13 @@
 ---
 layout: default
 ---
-    <div class="map" id="map_canvas" class="shadow_header_footer"></div> 
+    
 
     <div class="main-bg">
+        <div class="mapWrap"><div class="map" id="map_canvas" class="shadow_header_footer"></div></div>
         <div class="container main-content" id="hacker-list">
             
-            <div class="input-group search-box" data-spy="affix" data-offset-top="760">
+            <div class="input-group search-box">
                 <input type="search" class="form-control search light-table-filter" data-table="order-table" placeholder="Filter Courses (CSC148 etc.)" aria-describedby="basic-addon1">
             </div>
 
@@ -15,7 +16,7 @@ layout: default
                 <div class="col-md-12">
                     <table class="table table-condensed table-fixed" style="display: block">
                         <thead>
-                            <tr>
+                            <tr class="exam">
                                 <th class="m1">Course</th>
                                 <th class="m2">Section</th>
                                 <th class="m3">Date</th>

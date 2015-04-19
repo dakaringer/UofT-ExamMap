@@ -3,7 +3,7 @@ function populate (year) {
         var r = new Array();
         var j = -1;
         $.each(json, function(key, val) {
-            r[++j] = '<tr>';
+            r[++j] = '<tr class="exam">';
             var x = "";
             if (val.section != "*EXAM CANCELLED*") {
                 if (val.examDate.split(" ")[2] == "APR") {
@@ -55,7 +55,7 @@ function populate (year) {
 
 $(".canvas").click(function () {
     "use strict";
-    $('[onClick="showNav()"]').blur();
+    $(".navbar-toggle").blur();
 });
 
 
@@ -69,23 +69,18 @@ $(window).resize(function() {
 });
 
 var toggle = false;
-function showNav() {
-    if (!toggle) {
-        $(".navmenu-fixed-left").animate({left: "0px"});
-        toggle = true;
-        
-    }
-    else {
-        $(".navmenu-fixed-left").animate({left: "-300px"});
-        toggle = false;
-    }
-}
-
-
 $(document).on('click', function(e) {
     if ( $(e.target).closest('.navbar-toggle').length ) {
-        $(".navmenu-fixed-left").animate({left: "0px"});
+        if (toggle) {
+            $(".navmenu-fixed-left").animate({left: "-300px"});
+            toggle = false;
+        }
+        else {
+            $(".navmenu-fixed-left").animate({left: "0px"});
+            toggle = true;
+        }
     }else if ( ! $(e.target).closest('.navmenu').length ) {
         $(".navmenu-fixed-left").animate({left: "-300px"});
+        toggle = false;
     }
 });

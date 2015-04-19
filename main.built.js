@@ -5972,7 +5972,7 @@ var buildingList = [];
                     hash: {}
                 }) : (o = t.country, o = typeof o === a ? o() : o), s += f(o) + '</span>\n\n        </li>\n        <li><span class="postal-code">', u = n.postal, u ? o = u.call(t, {
                     hash: {}
-                }) : (o = t.postal, o = typeof o === a ? o() : o), s += f(o) + '</span>\n\n        </li>\n    </ul>\n</div>\n<nav id="info_tools" class="js-iw-nav">\n    <ul>\n        <li><a class="main_offices js-iw-offices" href="javascript:void(0);">Main Offices</a>\n\n        </li>\n        <li><a class="directions js-iw-directions" href="javascript:void(0);" >Directions</a>\n\n        </li>\n    </ul>\n</nav>\n<div class="js-iw-tab-content"></div>\n\n', s
+                }) : (o = t.postal, o = typeof o === a ? o() : o), s += f(o) + '</span>\n\n        </li>\n    </ul>\n</div>\n<div class="js-iw-tab-content"></div>\n\n', s
             });
             return t.registerPartial("templates_buildingInfo", n), n
         }), define("hbs!templates/markerInfo", ["hbs", "handlebars"], function (e, t) {
@@ -6205,7 +6205,7 @@ var buildingList = [];
                     },
                     render: function (e, t) {
                         var n = t === "marker" ? i(e) : r(e);
-                        this.data = e, this.type = t, this.mapInfoWindow.close(), this.mapInfoWindow.setPosition(e.position), this.mapInfoWindow.setContent(n), this.mapInfoWindow.open(e.map), _gaq.push(["_trackEvent", "InfoWindow", "Show", t + ": " + e.title])
+                        this.data = e, this.type = t, this.mapInfoWindow.close(), this.mapInfoWindow.setPosition(e.position), this.mapInfoWindow.setContent(n), this.mapInfoWindow.open(e.map)
                     },
                     hide: function () {
                         this.mapInfoWindow.close()
@@ -6345,10 +6345,10 @@ var buildingList = [];
                         id: e
                     });
                     if (!r) throw "Layer does not have attrib with id of " + e;
-                    typeof n == "undefined" && (n = !r.active), r.active = n, this.validateMarkerVisibility(), _gaq.push(["_trackEvent", "Layer Attrib", "Toggle", r.title])
+                    typeof n == "undefined" && (n = !r.active), r.active = n, this.validateMarkerVisibility()
                 },
                 toggle: function (e) {
-                    typeof e == "undefined" && (e = !this.active), this.active = e, this.validateMarkerVisibility(), _gaq.push(["_trackEvent", "Layer", "Toggle", this.title])
+                    typeof e == "undefined" && (e = !this.active), this.active = e, this.validateMarkerVisibility()
                 },
                 validateMarkerVisibility: function () {
                     var e = this,
@@ -6731,7 +6731,6 @@ var buildingList = [];
                     search: function (e, t) {
                         t = t || this.mapSlug, e = encodeURIComponent(e);
                         var r = n.getJSON("/data/map/" + t + "/search/" + e + "/only_id").done(this.displaySearchResults);
-                        _gaq.push(["_trackEvent", "Search", "Search", e])
                     },
                     displaySearchResults: function (e) {
                         var i = this,

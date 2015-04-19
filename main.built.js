@@ -28,7 +28,8 @@
 // Full source at https://github.com/harvesthq/chosen
 // Copyright (c) 2011 Harvest http://getharvest.com
 
-var buildingCodes = [];
+var focused = [];
+var buildingList = [];
 
 (function (e, t) {
     typeof define == "function" && define.amd ? define(t) : e.libGlobalName = t()
@@ -6415,6 +6416,7 @@ var buildingCodes = [];
                     strokeHover: "#0a83bf",
                     fillRed: "#990000"
                 },
+                selected : false,
                 resourceType: "Building",
                 infoWindow: n,
                 initialize: function (e) {
@@ -6422,9 +6424,8 @@ var buildingCodes = [];
                     var n = e.polygonPoints;
                     this.hash = "B" + this.id;
                     if (!e.map) return;
-                    buildingCodes.push(e);
-                    console.log(this);
-                    this.map = e.map || window.map, this.position = new google.maps.LatLng(this.lat, this.lng), this.createOverlay(n), this.createLabel(), this.addListeners()
+                    buildingList.push(this);
+                    this.map = e.map || window.map, this.position = new google.maps.LatLng(this.lat, this.lng), this.createOverlay(n), this.createLabel(), this.addListeners();                    
                 },
                 highlight: function () {
                     this.overlay.setOptions({
@@ -6441,8 +6442,25 @@ var buildingCodes = [];
                     })
                 },
                 unhighlight: function () {
+                    if (this.selected) {
+                        this.overlay.setOptions({
+                            fillColor: "#fff500",
+                            strokeColor: this._colors.strokeHover,
+                            fillOpacity: 1
+                        })
+                    }
+                    else {
+                        this.overlay.setOptions({
+                            fillColor: this._colors.fill,
+                            strokeColor: this._colors.stroke,
+                            fillOpacity: 1
+                        })
+                    }
+                },
+                focusb: function () {
                     this.overlay.setOptions({
-                        fillColor: this._colors.fill,
+                        fillColor: "#fff500",
+                        strokeColor: this._colors.strokeHover,
                         fillOpacity: 1
                     })
                 },
@@ -7773,4 +7791,55 @@ var buildingCodes = [];
                 }), t.preselected && t.focusPreselected(), t.query && t.search(t.query, a)
             })
         }), window.UofTMap = require("services/UofTMap"), require("main")
+});
+        
+var LightTableFilter = (function (Arr) {
+
+    var _input;
+
+    function _onInputEvent(e) {
+        _input = e.target;
+        focused = []
+        var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+        Arr.forEach.call(tables, function(table) {
+            Arr.forEach.call(table.tBodies, function(tbody) {
+                Arr.forEach.call(tbody.rows, _filter);
+            });
+        });
+
+
+        buildingList.forEach(function(b) {
+            if (focused.indexOf(b.code) != -1) {
+                b.selected = true;
+                b.focusb();
+            }
+            else {
+                b.selected = false;
+                b.unhighlight();
+            }
+        });
+    }
+
+    function _filter(row) {
+        var text = row.childNodes[0].textContent.toLowerCase(), val = _input.value.toLowerCase();
+        row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+        if (row.style.display == 'table-row' && val) {
+            focused.push(row.childNodes[4].textContent.split(" ")[0]);
+        }
+    }
+
+    return {
+        init: function() {
+            var inputs = document.getElementsByClassName('light-table-filter');
+            Arr.forEach.call(inputs, function(input) {
+                input.oninput = _onInputEvent;
+            });
+        }
+    };
+})(Array.prototype);
+
+document.addEventListener('readystatechange', function() {
+    if (document.readyState === 'complete') {
+        LightTableFilter.init();
+    }
 });

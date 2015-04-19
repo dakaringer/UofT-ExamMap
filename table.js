@@ -31,7 +31,12 @@ function populate (year) {
             }
             r[++j] = '<td class="course">'+val.course+'</td>';
             if (val.section) {
-                r[++j] = '<td class="section">'+val.section+'</td>';
+                if (val.section != "*EXAM CANCELLED*") {
+                    r[++j] = '<td class="section">'+val.section+'</td>';
+                }
+                else {
+                    r[++j] = '<td class="section"><b>EXAM CANCELLED</b></td>';
+                }
             }
             else {
                 r[++j] = '<td></td>';

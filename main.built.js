@@ -6460,14 +6460,14 @@ var buildingList = [];
                 },
                 focusb: function () {
                     this.overlay.setOptions({
-                        fillColor: "#fff500",
+                        fillColor: "#FFE498",
                         strokeColor: this._colors.strokeHover,
                         fillOpacity: 1
                     })
                 },
                 hoverb: function () {
                     this.overlay.setOptions({
-                        fillColor: "#ff0000",
+                        fillColor: "#E31837",
                         strokeColor: this._colors.strokeHover,
                         fillOpacity: 1
                     })
@@ -7830,7 +7830,8 @@ var LightTableFilter = (function (Arr) {
     }
 
     function _filter(row) {
-        var text = row.childNodes[0].textContent.toLowerCase(), val = _input.value.toLowerCase();
+        var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+        text = text.replace("add to calendaricalendargoogle calendar", "");
         row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
         if (row.style.display == 'table-row' && val) {
             if (row.childNodes[4].textContent == "ST VLAD") {

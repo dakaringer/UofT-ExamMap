@@ -6445,7 +6445,7 @@ var buildingList = [];
                 unhighlight: function () {
                     if (this.selected) {
                         this.overlay.setOptions({
-                            fillColor: "#fff500",
+                            fillColor: "#FFE498",
                             strokeColor: this._colors.strokeHover,
                             fillOpacity: 1
                         })

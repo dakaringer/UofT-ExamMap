@@ -1,0 +1,37 @@
+[
+    {
+        "course": "ARC2044HS",
+        "section": "A - Z",
+        "examDate": "THU 16 APR",
+        "examTime": "PM 2:00 - 5:00",
+        "location": "GB 304"
+    },
+    {
+        "course": "ARC3017HS",
+        "section": "L0106\n*John Shnier*",
+        "examDate": "MON 27 APR",
+        "examTime": "PM 1:00 - 6:00",
+        "location": "AR 103"
+    },
+    {
+        "course": "ARC3031HS",
+        "section": "A - Z",
+        "examDate": "TUE 21 APR",
+        "examTime": "9:00AM -6:00PM",
+        "location": "AR 066"
+    },
+    {
+        "course": "ARC4053HS",
+        "section": "A - Z",
+        "examDate": "THU 23 APR",
+        "examTime": "PM 2:00 - 4:30",
+        "location": "AR PCL"
+    },
+    {
+        "course": "URD1035HS",
+        "section": "A - Z",
+        "examDate": "FRI 24 APR",
+        "examTime": "9:30AM - 12:30PM",
+        "location": "AR 500B"
+    }
+]

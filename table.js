@@ -1,5 +1,5 @@
-function populate (year) {
-    $.getJSON("timetable/april15.json", function(json) {
+function populate (year, tt) {
+    $.getJSON("/timetable/" + tt + ".json", function(json) {
         var r = new Array();
         var j = -1;
         $.each(json, function(key, val) {

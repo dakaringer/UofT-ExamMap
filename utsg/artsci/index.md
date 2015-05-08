@@ -5,5 +5,4 @@ title: UofT Exam Map
 month: April
 year: 2015
 tt: april15
-group: Artsci
 ---

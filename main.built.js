@@ -6650,8 +6650,8 @@ var buildingList = [];
                     },
                     fetchMapData: function (e) {
                         var t = new n.Deferred,
-                            r = n.getJSON("maps/map." + e + ".json"),
-                            i = n.getJSON("maps/regions." + e + ".json");
+                            r = n.getJSON("/maps/map." + e + ".json"),
+                            i = n.getJSON("/maps/regions." + e + ".json");
                         return n.when(i, r).done(function (e, n) {
                             var r = e[0],
                                 i = n[0];
